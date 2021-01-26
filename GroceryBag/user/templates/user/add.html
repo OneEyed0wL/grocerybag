@@ -1,0 +1,44 @@
+{% extends 'user/index.html' %}
+{% load static %}
+
+
+{% block body %}
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Add List</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{% static 'user/css/style.css' %}">
+
+    </head>
+
+        <div class="container mt-5">
+            <h1>Add Grocery List</h1>
+            <form method="POST">{% csrf_token %}
+                <div class="form-group">
+                    <label>Item name</label>
+                    <input type="text" id="iname" name="iname" class="form-control" placeholder="" required/>
+                </div>
+                <div class="form-group">
+                    <label>Item quantity</label>
+                    <input type="text" id="iqnt" name="iqnt" class="form-control" placeholder="" required/>
+                </div>
+                <div class="form-group">
+                    <label>Item status</label>
+                    <select id="istatus" name="istatus" class="form-control">
+                        <option value="0">PENDING</option>
+                        <option value="1">BOUGHT</option>
+                        <option value="2">NOT AVAILABLE</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Date</label>
+                    <input type="date" id="idate" name="idate"class="form-control" placeholder="Date" required>&nbsp;<br><span id="spndate"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Add" id="fsubmit" name="fsubmit" class="btn btn-danger">
+                </div>
+            </form>
+        </div>
+
+{% endblock %}
+  

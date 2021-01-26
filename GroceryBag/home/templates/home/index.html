@@ -1,0 +1,131 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>GroceryBag</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+     <!-- ajax -->
+     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <style>
+      /* The Modal (background) */
+
+.popup .overlay {
+position:fixed;
+top:0px;
+left:0px;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.7);
+z-index:1;
+display:none;
+}
+
+.popup .content {
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%) scale(0);
+background:#fff;
+width:50%;
+height:30%;
+z-index:2;
+text-align:center;
+padding:20px;
+box-sizing:border-box;
+font-family:"Open Sans",sans-serif;
+}
+
+.popup .close-btn {
+cursor:pointer;
+position:absolute;
+right:0;
+top:0;
+width:30px;
+height:30px;
+background:#222;
+color:#fff;
+font-size:25px;
+font-weight:600;
+line-height:30px;
+text-align:center;
+border-radius:50%;
+}
+
+.popup.active .overlay {
+display:block;
+}
+
+.popup.active .content {
+transition:all 300ms ease-in-out;
+transform:translate(-50%,-50%) scale(1);
+}
+
+h3 {
+      font-weight: 400;
+      color: #1c87c9;
+}
+/* end of model style */
+
+</style>
+
+  </head>
+<body>
+<!-- nav -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+        <a class="navbar-brand" href="#">GroceryBag</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'hom:home' %}">Home <span class="sr-only"></span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'hom:user_reg' %}">Sign Up</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'hom:login' %}">Login</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+<!-- end nav -->
+
+{% block body %}
+
+
+{% endblock %}
+<div class="popup" id="popup-1">
+  <div class="overlay"></div>
+  <div class="content">
+    <div class="close-btn" onclick="togglePopup()">&times;</div>
+    <h3 align="left">Message</h3>
+    <span id="popupMsg"></span>
+  </div>
+</div>
+</body>
+<script>
+  
+  // model function
+  
+  function togglePopup(){
+    document.getElementById("popup-1").classList.toggle("active");
+    
+  }
+  
+     
+          
+          "{% if messages %} {% for message in messages %}"
+          
+                      $('#popupMsg').html("<br>{{ message }}");
+                      $('#popupMsg').css('color','green');
+                      $('#popupMsg').css('font-size','20px');
+                      togglePopup();
+          "{% endfor %}  {% endif %}"
+</script>
+</html>

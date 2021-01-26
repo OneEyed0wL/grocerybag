@@ -1,0 +1,70 @@
+{% extends 'user/index.html' %}
+{% load static %}
+
+
+{% block body %}
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>View List</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{% static 'user/css/style.css' %}">
+
+    
+        <div class="container mt-5">
+            <!-- top -->
+            <div class="row">
+                <div class="col-lg-6">
+                    <h1>View Grocery List</h1><br>
+                    <a href="{% url 'user:add' %}">Add Item</a>
+
+                </div>
+                <div class="col-lg-6 float-right">
+                    <form method="POST">{% csrf_token %}
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <!-- Date Filtering-->
+                            <input type="date" id="fdate" name="fdate" class="form-control" required>
+                        </div>
+                        
+                            <div class="col-lg-4">
+                                <a href="{% url 'user:filhome' %}"><input type="submit" class="btn btn-danger" value="filter"></a>
+                            </div>
+                        
+                        
+                    </div>
+                </form>
+                </div>
+            </div>
+            <!-- // top -->
+            <!-- Grocery Cards -->
+            <div class="row mt-4">
+                <!--- -->
+                <!-- // Loop -->
+                {% if ulist %}
+                {% for s in ulist %}
+                <div class="col-lg-4">
+                    <div class="card" style="margin-top: 5%;">
+                        <div class="card-body">
+                          <h5 class="card-title">{{s.item_name}}</h5>
+                          <h6 class="card-subtitle mb-2 text-muted">{{s.item_q}}</h6>
+                          {% if s.status == 0 %}
+                          <p class="text-danger" style="color: rgb(16, 209, 216) !important;">PENDING</p>
+                          {% elif s.status == 1 %}
+                          <p class="text-danger" style="color: rgb(17, 196, 26) !important;">BOUGHT</p>
+                          {% else %}
+                          <p class="text-danger" style="color: rgb(223, 10, 10) !important;">NOT AVAILABLE</p>
+                          {% endif %}
+                          <a href="{% url 'user:gupdate' s.id  %}">Update</a>&emsp;&emsp;<a href="{% url 'user:delete' s.id  %}">Delete</a>
+                        </div>
+                      </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+                
+
+            </div>
+        </div>
+        <script>
+
+        </script>
+
+{% endblock %}

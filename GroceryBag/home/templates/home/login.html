@@ -1,0 +1,34 @@
+{% extends 'home/homepage.html' %}
+{% load static %}
+
+
+{% block body %}
+<link rel="stylesheet" href="{% static 'home/css/style.css' %}">
+
+        
+        <form method="POST" id="lform"> {% csrf_token %}
+    <div class="container" style="border: 1px solid black;
+    text-align: center;
+    top: 30%;
+    position: absolute;
+    left: 35%;
+    width: 500px;">   
+            <div>
+                <h1 style="margin-top: 25px;">LOGIN</h1>
+                <div class="form-group" style="margin-top: 25px;">
+                    <input type="text" name="email" id="email" placeholder="EMAIL" class="form-control" style="width: 100% !important;" />
+                </div>
+                <div class="form-group">
+                    <input type="password" name="pass" id="pass" placeholder="PASSWORD" style="width: 100% !important;" />
+                </div>
+                <div class="form-group">
+                    <input type="submit" name="login" value="LOGIN">
+                </div></div>
+                    
+        </div>
+        </form>
+    
+
+
+
+{% endblock %}

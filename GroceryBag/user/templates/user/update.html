@@ -1,0 +1,60 @@
+{% extends 'user/index.html' %}
+{% load static %}
+
+
+{% block body %}
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Update List</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{% static 'user/css/style.css' %}">
+
+        <div class="container mt-5">
+            <h1>Update Grocery List</h1>
+            {% if ulist %}
+            {% for s in ulist %}
+            <form method="POST">{% csrf_token %} 
+                <div class="form-group">
+                    <label>Item name</label>
+                    <input type="text" id="iname" name="iname" class="form-control" placeholder="Item name" value='{{s.item_name}}' />
+                </div>
+                <div class="form-group">
+                    <label>Item quantity</label>
+                    <input type="text" id="iqnt" name="iqnt" class="form-control" placeholder="Item quantity" value='{{s.item_q}}' />
+                </div>
+                <div class="form-group">
+                    <label>Item status</label>
+                    <select class="form-control" id="istatus" name="istatus">
+                        <option value="0">PENDING</option>
+                        <option value="1">BOUGHT</option>
+                        <option value="2">NOT AVAILABLE</option>
+                    </select>
+                </div>
+                <script>
+                    "{% if s.status == 0 %}"
+                    document.getElementById("istatus").selectedIndex = "0";
+                    "{% elif s.status == 1 %}"
+                    document.getElementById("istatus").selectedIndex = "1";
+                    "{% else %}"
+                    document.getElementById("istatus").selectedIndex = "2";
+                    "{% endif %}"
+                </script>
+                <div class="form-group">
+                    <label>Date</label>
+                    <input type="date" class="form-control" id="idate" name="idate"  />  
+                    <script>
+                        var today = new Date('{{s.gdate}}');
+                        today.setDate(today.getDate() + 1);
+                        today=today.toISOString().split('T')[0];
+                        document.getElementById("idate").setAttribute("value",today);
+                    </script>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Update" class="btn btn-danger">
+                </div>
+            </form>
+            {% endfor %}
+            {% endif %}
+                
+        </div>
+
+{% endblock %}
