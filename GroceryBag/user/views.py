@@ -27,7 +27,7 @@ def add(request):
         idate=request.POST.get('idate')
         s=items(item_name=iname,item_q=qnty,status=int(status),gdate=idate,uid_id=int(request.session['id']))
         s.save()
-        messages.success(request,'saved!!')
+       
     return render(request,"user/add.html")
 def gupdate(request,id):
     keys = request.session.keys()
@@ -41,7 +41,7 @@ def gupdate(request,id):
         status=request.POST.get('istatus')
         idate=request.POST.get('idate')
         items.objects.filter(id=id).update(item_name=iname,item_q=qnty,status=int(status),gdate=idate,uid_id=int(request.session['id']))
-        messages.success(request,'Updated!!')
+        
 
     return render(request,"user/update.html",{'ulist':s})
 
